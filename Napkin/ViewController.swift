@@ -16,6 +16,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var tableViewContainer: NSView!
     @IBOutlet weak var codeWindowContainer: NSView!
     @IBOutlet weak var emptyToNull: NSButton!
+    @IBOutlet weak var sortDictKeys: NSButton!
     @IBOutlet weak var segment: NSSegmentedControl!
     
     var args: [[String:String]]? = nil
@@ -38,7 +39,10 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
             let emptyVal = segment.selectedSegment == 1 ? "None" : "null"
             let oldQuote = "\""
             let newQuote = "\\\""
-            let combined = args?.map {
+            
+            let sortedArgs = sorted(args!) {self.sortDictKeys.state == NSOnState ? $0["key"]! < $1["key"] : false}
+            
+            let combined = sortedArgs.map {
                 (res: [String: String]) -> String in
                 let key = res["key"]!
                 
@@ -52,7 +56,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
                 return NSString(format: "\"\(key)\": \(entryValue)")
             }
             
-            let joined = ",\n  ".join(combined!)
+            let joined = ",\n  ".join(combined)
             
             codeWindow.string = "{\n  \(joined)\n}"
         }
@@ -62,19 +66,20 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
         loadCodeWindow()
     }
     
+    @IBAction func sortDictKeysChanged(_: AnyObject) {
+        loadCodeWindow()
+    }
+    
     @IBAction func viewChanged(segments: NSSegmentedControl) {
-        if segments.selectedSegment == 0 {
-            codeWindowContainer.hidden = true
-            emptyToNull.hidden = true
-            tableViewContainer.hidden = false
-        } else if segments.selectedSegment >= 1 {
-            
-            emptyToNull.hidden = false
-            
-            codeWindowContainer.hidden = false
-            
-            tableViewContainer.hidden = true
-            
+        
+        let showTable = (segments.selectedSegment == 0)
+        
+        codeWindowContainer.hidden = showTable
+        tableViewContainer.hidden = !showTable
+        emptyToNull.hidden = showTable
+        sortDictKeys.hidden = showTable
+        
+        if segments.selectedSegment >= 1 {
             if (segments.selectedSegment == 1) {
                 emptyToNull.title = "convert empty to None"
             } else if (segments.selectedSegment == 2) {
