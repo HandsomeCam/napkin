@@ -12,6 +12,9 @@
 		7E4C3C2A1A30EDE70009A854 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E4C3C291A30EDE70009A854 /* Images.xcassets */; };
 		7E4C3C2D1A30EDE70009A854 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E4C3C2B1A30EDE70009A854 /* Main.storyboard */; };
 		7E4C3C391A30EDE70009A854 /* NapkinTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E4C3C381A30EDE70009A854 /* NapkinTests.swift */; };
+		7E9FF11F1AB211F80064FF5E /* UrlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FF11E1AB211F80064FF5E /* UrlParser.swift */; };
+		7E9FF1201AB211F80064FF5E /* UrlParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FF11E1AB211F80064FF5E /* UrlParser.swift */; };
+		7E9FF1221AB213020064FF5E /* UrlParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E9FF1211AB213020064FF5E /* UrlParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,8 @@
 		7E4C3C321A30EDE70009A854 /* NapkinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NapkinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E4C3C371A30EDE70009A854 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E4C3C381A30EDE70009A854 /* NapkinTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapkinTests.swift; sourceTree = "<group>"; };
+		7E9FF11E1AB211F80064FF5E /* UrlParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlParser.swift; sourceTree = "<group>"; };
+		7E9FF1211AB213020064FF5E /* UrlParserTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UrlParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +80,7 @@
 		7E4C3C221A30EDE70009A854 /* Napkin */ = {
 			isa = PBXGroup;
 			children = (
+				7E9FF11D1AB211BE0064FF5E /* Parsing */,
 				7E4C3C251A30EDE70009A854 /* AppDelegate.swift */,
 				7E4C3C271A30EDE70009A854 /* ViewController.swift */,
 				7E4C3C291A30EDE70009A854 /* Images.xcassets */,
@@ -97,6 +103,7 @@
 			children = (
 				7E4C3C381A30EDE70009A854 /* NapkinTests.swift */,
 				7E4C3C361A30EDE70009A854 /* Supporting Files */,
+				7E9FF1211AB213020064FF5E /* UrlParserTests.swift */,
 			);
 			path = NapkinTests;
 			sourceTree = "<group>";
@@ -107,6 +114,14 @@
 				7E4C3C371A30EDE70009A854 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7E9FF11D1AB211BE0064FF5E /* Parsing */ = {
+			isa = PBXGroup;
+			children = (
+				7E9FF11E1AB211F80064FF5E /* UrlParser.swift */,
+			);
+			name = Parsing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +224,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E4C3C281A30EDE70009A854 /* ViewController.swift in Sources */,
+				7E9FF11F1AB211F80064FF5E /* UrlParser.swift in Sources */,
 				7E4C3C261A30EDE70009A854 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -217,6 +233,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E9FF1201AB211F80064FF5E /* UrlParser.swift in Sources */,
+				7E9FF1221AB213020064FF5E /* UrlParserTests.swift in Sources */,
 				7E4C3C391A30EDE70009A854 /* NapkinTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -397,6 +415,7 @@
 				7E4C3C3E1A30EDE70009A854 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7E4C3C3F1A30EDE70009A854 /* Build configuration list for PBXNativeTarget "NapkinTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +424,7 @@
 				7E4C3C411A30EDE70009A854 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

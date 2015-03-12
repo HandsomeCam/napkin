@@ -19,7 +19,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     @IBOutlet weak var sortDictKeys: NSButton!
     @IBOutlet weak var segment: NSSegmentedControl!
     
-    var args: [[String:String]]? = nil
+    var parser: UrlParser? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,12 +35,12 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     }
     
     func loadCodeWindow() {
-        if (args != nil) {
+        if (parser != nil) {
             let emptyVal = segment.selectedSegment == 1 ? "None" : "null"
             let oldQuote = "\""
             let newQuote = "\\\""
             
-            let sortedArgs = sorted(args!) {self.sortDictKeys.state == NSOnState ? $0["key"]! < $1["key"] : false}
+            let sortedArgs = sorted(parser!.arguments()) {self.sortDictKeys.state == NSOnState ? $0["key"]! < $1["key"] : false}
             
             let combined = sortedArgs.map {
                 (res: [String: String]) -> String in
@@ -92,35 +92,21 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
     
     @IBAction func separateUrl(_: AnyObject) {
         let urlString = url.stringValue
+    
+        self.parser = UrlParserImpl(rawUrl: urlString)
         
-        let urlComponents = urlString.componentsSeparatedByString("?")
+        self.loadCodeWindow()
         
-        if (urlComponents.count == 2) {
-            var argumentString = urlComponents[1]
-            var arguments = argumentString.componentsSeparatedByString("&")
-
-            let actualArgs = arguments.map {
-                (var pair) -> [String: String] in
-                    var components = pair.componentsSeparatedByString("=")
-                    return ["key": components[0], "value":components[1]]
-            }
-            
-            args = actualArgs
-            self.loadCodeWindow()
-            
-            self.tableView.reloadData()
-        } else {
-            // TODO: notify the UI
-        }
+        self.tableView.reloadData()
     }
     
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        if args == nil {
+        if parser == nil {
             return 0
         }
         else
         {
-            return args!.count
+            return parser!.arguments().count
         }
     }
     
@@ -131,7 +117,7 @@ class ViewController: NSViewController, NSTableViewDataSource, NSTableViewDelega
 
         cellView.textField?.selectable = true
         
-        var rowValue = args![row]
+        var rowValue = parser!.arguments()[row]
         cellView.textField?.stringValue = rowValue[viewForTableColumn.identifier]!
         
         return cellView
